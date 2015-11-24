@@ -30,9 +30,9 @@ class Post(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String(64))
     body = db.Column(db.Text)
-        body_html = db.Column(db.Text)
-        summury=db.Column(db.Text)
-        summury_html=db.Column(db.Text)
+    body_html = db.Column(db.Text)
+    summury=db.Column(db.Text)
+    summury_html=db.Column(db.Text)
 
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
@@ -40,22 +40,22 @@ class Post(db.Model):
 
     @staticmethod
         def on_changed_body(target, value, oldvalue, initiator):
-                allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'blockquote','em', 'i',
+            allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'blockquote','em', 'i',
                                     'strong','li','ol','pre','strong','ul','h1','h2','h3','p']
-                target.body_html = bleach.linkify(bleach.clean(
-                        markdown(value, output_format='html'),
-                     tags=allowed_tags, strip=True)
-                )
+            target.body_html = bleach.linkify(bleach.clean(
+            markdown(value, output_format='html'),
+            tags=allowed_tags, strip=True)
+            )
 
                 
 
         @staticmethod
         def on_changed_summury(target, value, oldvalue, initiator):
-                allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'blockquote','em', 'i',
+            allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'blockquote','em', 'i',
                                     'strong','li','ol','pre','strong','ul','h1','h2','h3','p']
-                target.summury_html = bleach.linkify(bleach.clean(
-                        markdown(value, output_format='html'),
-                     tags=allowed_tags, strip=True)
+            target.summury_html = bleach.linkify(bleach.clean(
+            markdown(value, output_format='html'),
+            tags=allowed_tags, strip=True)
                 )
 
 
